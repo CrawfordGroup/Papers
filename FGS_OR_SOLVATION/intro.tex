@@ -1,0 +1,144 @@
+Successfully modeling chiroptical properties such as optical rotation
+ostensibly requires the same
+theoretical considerations involved in modeling any molecular property,
+e.g., choices in atomic orbital (AO) basis sets and approaches to electron
+correlation effects. Optical rotation calculations, however, demonstrate
+a particular sensitivity to these theoretical details and others,
+including the treatment of
+the environment surrounding a chiral molecule, and represent an ongoing challenge
+to theoretical quantum chemistry.\cite{Crawford:06,Srebro:17,Crawford:18}
+Highly correlated quantum mechanical
+(QM) methods\cite{Shavitt:09,Crawford:00,Helgaker:12} offer the most reliable means of calculation, however
+even an accurate correlated
+method such as the coupled cluster singles and doubles (CCSD) method
+can produce specific rotation values significantly at odds with experimental
+results.
+One difficulty in comparing accurate QM wavefunction methods with
+experiment is that especially large, flexible AO basis sets
+are needed to obtain converged optical rotation values near the complete basis
+set (CBS) limit,\cite{Mach:11,Baranowska:13,Haghdani:16} and, in contrast to many
+molecular properties,\cite{Papajak:11} diffuse basis functions are of
+critical importance in optical rotation calculations.\cite{Baranowska:10,
+Mach:11,Wiberg:13}
+Even with a sufficient treatment of dynamical electron correlation and a basis set
+approaching the CBS limit, a single optical rotation calculation on
+a molecular system in its minimum-energy geometry may be an inappropriate 
+comparison to an experimental value. For example, it is known that
+vibrational corrections to specific rotation can be significant,\cite{Ruud:01,
+Ruud:05,Mort:05,Kongsted:08,Pedersen:09,Pedersen:09b} even to the
+extent that the molecular vibrations induce sign changes at points in the optical
+rotatory dispersion (ORD) curve.\cite{Ruud:05}
+For conformationally flexible molecules, a great number of conformations
+may need to be considered
+depending on the experimental conditions.\cite{Wiberg:03,Wiberg:05,
+Lambert:12,Pearce:17}
+
+In addition to these factors, the role of solvent is understood to be
+of primary importance in ORD spectra.\cite{Kumata:70,Berova:00}
+The specific rotation of a molecule measured in the gas phase can differ
+drastically from the rotation in solution or the condensed phase,
+even changing sign depending on the solvent.\cite{Kumata:70,Wilson:05}
+In contrast to many other properties where nonpolar solvent environments
+are expected to more closely mimic conditions in the gas phase
+relative to polar solvents, the opposite can be true for measured specific
+rotations.\cite{Wilson:05} An additional complication in modeling
+rotation in solution is that the structure of the surrounding solvent molecules
+itself may also contribute to specific rotation, as the ``chiral
+imprint'' can be responsible for a significant portion of the solvent
+shift.\cite{Beratan:06,Beratan:07} A more complete understanding of the
+nature of these solvent effects 
+is essential to increasing the reliability of theoretical
+optical rotation predictions across all phases.
+
+Solvent effects have been incorporated into optical rotation calculations
+often with an implicit solvation approach, such as the
+venerable polarizable continuum model (PCM).\cite{Miertus:81,Tomasi:05}
+Often used in conjunction with density functional theory (DFT) methods,
+DFT/PCM treatments have yielded mixed results in specific rotation
+calculations in comparison to experimental values.\cite{Mennucci:02,
+Kongsted:08,Lahiri:13}
+An explicit treatment of solvent molecules has the advantage of capturing
+specific solute-solvent interactions inaccessible to a continuum model,
+(e.g., hydrogen bonding). The inclusion of explicit solvent effects
+has contributed valuable insight into the role of solvent molecules
+in methyloxirane's optical rotation, probing the contributions of
+the dissymmetric solvent structure,\cite{Beratan:06,Beratan:07}
+as well as achieving quantitative agreement with experimental measurements
+in water when combined with an implicit treatment of the bulk solvent
+and vibrational corrections.\cite{Lipparini:13} Unfortunately, 
+explicit solvation treatments require extensive sampling of configurations, 
+and typically thousands of molecular dynamics snapshots are needed for converged
+results.\cite{Beratan:06,Beratan:07,Lipparini:13} The associated computational
+cost of of such an approach necessarily limits the applicability of most
+wavefunction-based electronic structure methods, and one often relies on
+DFT methods, where gas-phase specific rotation results, for methyloxirane
+in particular, depend on significant error cancellation to obtain correct
+signs.\cite{Kongsted:06} In this work, we investigate the combination of
+coupled-cluster linear response theory and an implicit solvation model
+based on a smooth definition of the dielectric permittivity to obtain
+specific rotation values in solution.
+
+The implicit solvent model utilized herein is based on a definition
+of the dielectric permittivity as a function of electron density. 
+Introduced by Fattebert and Gygi\cite{Fattebert:02,Fattebert:03},
+this model was developed for use in the context of plane-wave based DFT
+calculations
+\cite{Scherlis:06,Andreussi:12,Dziedzic:11,Dziedzic:13,Fox:14}
+and has been particularly successful in computing accurate solvation
+energies relative to contemporary solvent models.\cite{Dziedzic:11,
+Dziedzic:13}
+The definition of the dielectric permittivity takes the form of Equation
+\ref{eqn:eps}.
+
+\begin{align}
+\epsilon[\rho({\mathbf{r}})] = 1 + \frac{\epsilon_\infty-1}{2}\left[1+\frac{1-\left(
+\rho({\mathbf{r}})/\rho_0\right)^{2\beta}}{1+(\rho({\mathbf{r}})/\rho_0)^
+{2\beta}}\right]
+\label{eqn:eps}
+\end{align}
+In this model, the dielectric permittivity $\epsilon$ is determined by the
+electron density
+($\rho$) and depends on the two parameters $\rho_0$ and $\beta$, which
+control the transition of $\epsilon$ from the vacuum value of one to the
+dielectric constant of the bulk solvent $\epsilon_\infty$. The appropriate electrostatic problem
+in this case corresponds to solving the generalized Poisson equation (GPE)
+(Equation \ref{eqn:GPE}) for the electrostatic potential ($V^\mathrm{GPE}$).
+
+\begin{align}
+\nabla \cdot  \left[ \epsilon({\mathbf{r}})\nabla V^\mathrm{GPE}({\mathbf{r}})\right] = 
+-4\pi \rho_\mathrm{tot}({\mathbf{r}})
+\label{eqn:GPE}
+\end{align}
+Unlike the standard Poisson equation corresponding to electrostatics in vacuum
+or a homogeneous permittivity, which can be solved analytically,
+the GPE in Equation \ref{eqn:GPE} must in general be solved by numerical
+techniques. Its solution here is achieved by interfacing with 
+DL\_MG,\cite{Womack:18} an open-source multigrid solver library. As previously
+described,\cite{Howard:17} real-space grid representations of the permittivity
+and total density $\rho_\mathrm{tot}$ are used to obtain $V^\mathrm{GPE}$,
+which is numerically integrated into the AO basis and iterated to self-consistency
+along with the HF molecular orbitals.
+We have previously\cite{Howard:17} incorporated this continuum
+solvent model in a Hartree-Fock framework to extend its use to
+correlated wavefunction methods.
+A study of small molecules with well-known electronic excitation
+solvent shifts demonstrated good performance for this solvation model
+in conjunction with the EOM-CCSD method, typically reproducing experimentally
+determined n$\rightarrow \pi^*$ blue shifts to within 0.1 eV.\cite{Howard:17}
+This continuum dielectric model requires only two parameters and,
+capturing the effects of solvation through the molecular orbitals
+and Fock matrix elements (analogous to a PTE approximation in PCM)
+\cite{Lipparini:16,Cammi:13},
+can be readily extended to any post-HF
+correlated method.  This approach can be contrasted with a more complete
+treatment of continuum solvation at the correlated level, which
+would include the solvent's response to electron correlation and/or the
+electric and magnetic field perturbations, as well as a proper
+consideration of non-equilibrium solvation effects, as has been demonstrated
+by Caricato.\cite{Caricato:13} Despite the present model's relative simplicity,
+excitation energies computed via EOM-CCSD calculations in solution have
+compared favorably with those resulting from more sophisticated approaches.
+\cite{Howard:17} In this work, we apply this smooth dielectric model
+(hereafter, referred to as the FGS model)
+to the computation of specific rotations in solution at the CCSD level.
+

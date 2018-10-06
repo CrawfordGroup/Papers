@@ -1,0 +1,50 @@
+\documentclass[journal=jpcafh]{achemso}
+\usepackage{achemso}
+\setkeys{acs}{maxauthors = 10 }
+\usepackage{amsmath}
+\usepackage{rotating}
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage{esvect}
+\usepackage{bm}
+\usepackage[export]{adjustbox}
+\usepackage{longtable}
+\usepackage{lscape}
+\usepackage[T1]{fontenc}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{subcaption}
+
+
+\SectionNumbersOn
+\newcommand{\rotunits}{deg dm$^{-1}$ (g/mL)$^{-1}$}
+
+
+\author{J. Coleman Howard}
+\affiliation{Department of Chemistry, Virginia Tech, Blacksburg, VA 24061, USA}
+\author{T. Daniel Crawford}
+\affiliation{Department of Chemistry, Virginia Tech, Blacksburg, VA 24061, USA}
+\email{crawdad@vt.edu}
+
+{\title{Calculating Optical Rotatory Dispersion Spectra in Solution Using a Smooth
+Dielectric Model}
+\begin{document}
+\input{abstract}
+\newpage
+\section{Introduction}
+\input{intro}
+\section{Computational Methods}
+\input{comp_methods}
+\newpage
+\section{Results and Discussion}
+\input{results}
+\clearpage
+\section{Conclusions}
+\input{conclusions}
+\section*{Supporting Information Available}
+Optimized geometries of solute structures and summaries of grid parameterizations and solvents utilized in calculations.
+\section{Acknowledgments}
+\input{acks}
+\bibliography{abbrevs,refs}
+\newpage
+\input{toc_graphic}
+\end{document}

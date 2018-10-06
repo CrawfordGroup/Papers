@@ -1,0 +1,30 @@
+Specific rotation values were computed with the CCSD method for three
+molecules, (\emph{S})-methyloxirane, (\emph{1S,4S})-norbornenone, and
+(\emph{S})-2-chloropropionitrile using the aug-cc-pVDZ basis set.
+\cite{Kendall:92}
+Each of these calculations utilize
+the velocity-gauge representation of the dipole operator, ensuring
+origin-independent results, and all reported specific rotation values represent
+modified velocity-gauge results.\cite{Pedersen:04b}
+Each of these geometries was optimized with the B3LYP DFT functional
+using the 6-311G(d,p) basis set.\cite{Krishnan:80} The core orbitals
+(i.e., 1$s$ for C,N, and O; $1s2s2p$ for Cl) were kept frozen
+in the CCSD energy and response calculations.
+In defining the dielectric permittivity according to Equation \ref{eqn:eps},
+the solvent cavity was fixed based on a converged electronic SCF density
+computed in vacuum, as in Reference \citenum{Howard:17}. For selecting
+the dimensions of the real-space grid used in solving the GPE for the
+electrostatics in solution, the number of points and grid spacing were
+selected such that specific rotations computed in vacuum with electrostatic
+computed from the GPE reproduced those from a conventional CCSD specific
+rotation calculation. For the three molecules studied here, the maximum
+deviation between those rotation values is less than 4 \rotunits, and
+corresponds to the specific rotation of (1\emph{S},4\emph{S})-norbornenone
+at 355 nm, which has a magnitude greater than 3000 \rotunits. The values of the electrostatic potential on the boundary points of the grid are approximated by computing the potential associated with a homogeneous medium of $\epsilon$ corresponding to the solvent's dielectric constant, as in previous works.\cite{Dziedzic:11,Howard:17} The grid
+details, as well as parameters used in the DL\_MG multigrid calculations,
+are provided in the Supporting Information. For the PCM calculations performed
+here, geometry optimizations were performed with Gaussian09 software
+\cite{g09}. All other computations were performed with the Psi4 software
+package,\cite{psi4} utilizing an interface to PCMSolver\cite{pcmsolver}
+for specific rotation calculations with PCM solvents. Those calculations
+utilized PCM cavities constructed with Bondi radii scaled by a factor of 1.2.
